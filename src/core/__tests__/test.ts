@@ -35,7 +35,7 @@ class MockReporter implements Reporter {
 
 test('diffs images correctly', async () => {
   const [before, after] = await Promise.all(
-    ['before-example.png', 'after-example.png'].map(
+    ['screenshot1.png', 'screenshot2.png'].map(
       async fileName =>
         new MockBackend([
           {
@@ -63,11 +63,56 @@ test('diffs images correctly', async () => {
   expect(screenshot.mismatchPercentage).toMatchInlineSnapshot(`7.08`);
 });
 
-it.todo('matches up screenshots with the same key');
+it('matches up screenshots with the same key', async () => {
+  const screenshot1 = await fs.readFile(
+    path.join(__dirname, 'screenshot1.png'),
+  );
+
+  const screenshot2 = await fs.readFile(
+    path.join(__dirname, 'screenshot2.png'),
+  );
+
+  const before = new MockBackend([
+    {
+      key: { name: 'my-screenshot-1' },
+      image: screenshot1,
+    },
+    {
+      key: { name: 'my-screenshot-2' },
+      image: screenshot2,
+    },
+  ]);
+
+  // These screenshots do not arrive in the same order as above.
+  const after = new MockBackend([
+    {
+      key: { name: 'my-screenshot-2' },
+      image: screenshot2,
+    },
+    {
+      key: { name: 'my-screenshot-1' },
+      image: screenshot1,
+    },
+  ]);
+
+  const mockReporter = new MockReporter();
+
+  await run({
+    before,
+    after,
+    reporters: [mockReporter],
+  });
+
+  const report = mockReporter.getReport();
+
+  for (const screenshot of report.screenshots) {
+    expect(screenshot.mismatchPercentage).toBe(0);
+  }
+});
 
 it('handles when either a before or after screenshot is not present', async () => {
   const beforeScreenshot = await fs.readFile(
-    path.join(__dirname, 'before-example.png'),
+    path.join(__dirname, 'screenshot1.png'),
   );
 
   const before = new MockBackend([
