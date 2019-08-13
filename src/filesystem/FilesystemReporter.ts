@@ -9,7 +9,7 @@ interface Config {
   if(): boolean;
 }
 
-export default class UpdateBaselinesReporter implements Reporter {
+export default class FilesystemReporter implements Reporter {
   constructor(private readonly config: Config) {}
 
   async report(report: Report): Promise<void> {

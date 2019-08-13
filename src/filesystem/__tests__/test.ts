@@ -1,4 +1,4 @@
-import UpdateBaselinesReporter from '../UpdateBaselinesReporter';
+import FilesystemReporter from '../FilesystemReporter';
 import tempy from 'tempy';
 import fs from 'fs-extra';
 import path from 'path';
@@ -24,7 +24,7 @@ test('backend correctly reads baselines written by the reporter', async () => {
 
   const exampleScreenshot = await getExampleScreenshot();
 
-  const reporter = new UpdateBaselinesReporter({
+  const reporter = new FilesystemReporter({
     directory: tmpDir,
     if: () => true,
   });
@@ -57,7 +57,7 @@ test('previous baselines are cleared when updating them', async () => {
 
   await fs.writeFile(existingFile, '');
 
-  const reporter = new UpdateBaselinesReporter({
+  const reporter = new FilesystemReporter({
     directory: tmpDir,
     if: () => true,
   });
@@ -74,7 +74,7 @@ test('baselines only update if passed-in condition is true', async () => {
 
   const exampleScreenshot = await getExampleScreenshot();
 
-  const reporter = new UpdateBaselinesReporter({
+  const reporter = new FilesystemReporter({
     directory: tmpDir,
     if: () => false,
   });
