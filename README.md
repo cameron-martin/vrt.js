@@ -1,6 +1,5 @@
-# vrt
+# vrt.js
 
 ## Concepts
 
-* **Screenshot** - A PNG with a _key_ and a 
-* **Backend** - something that delivers screenshots 
+* **Backend** - Something that yields screenshots. You will have one of these for either side of the comparison. Screenshots can come from anywhere - the filesystem, S3, a browser, etc. Screenshots have an associated key, which is an arbitrary dictionary of properties. This is used to pair screenshots yielded from the "before" and "after" backend.
