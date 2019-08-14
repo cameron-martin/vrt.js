@@ -1,56 +1,26 @@
+import {
+  MockBackend,
+  MockReporter,
+  getExampleScreenshot,
+} from '../../test-utils';
 import run from '../run';
-import { Backend, Screenshot } from '../Backend';
-import fs from 'fs-extra';
-import path from 'path';
-import { Reporter, Report } from '../Reporter';
-
-class MockBackend implements Backend {
-  constructor(private readonly screenshots: Screenshot[]) {}
-  async *getScreenshots() {
-    for (const screenshot of this.screenshots) {
-      yield screenshot;
-    }
-  }
-}
-
-class MockReporter implements Reporter {
-  private _report: Report | undefined;
-
-  async report(report: Report): Promise<void> {
-    if (!this._report) {
-      this._report = report;
-    } else {
-      throw new Error('Reporter was called multiple times');
-    }
-  }
-
-  getReport(): Report {
-    if (this._report) {
-      return this._report;
-    } else {
-      throw new Error('Reporter was not called yet');
-    }
-  }
-}
 
 test('diffs images correctly', async () => {
-  const [before, after] = await Promise.all(
-    ['screenshot1.png', 'screenshot2.png'].map(
-      async fileName =>
-        new MockBackend([
-          {
-            key: { name: 'my-screenshot' },
-            image: await fs.readFile(path.join(__dirname, fileName)),
-          },
-        ]),
-    ),
-  );
-
   const mockReporter = new MockReporter();
 
   await run({
-    before,
-    after,
+    before: new MockBackend([
+      {
+        key: { name: 'my-screenshot' },
+        image: await getExampleScreenshot('screenshot1.png'),
+      },
+    ]),
+    after: new MockBackend([
+      {
+        key: { name: 'my-screenshot' },
+        image: await getExampleScreenshot('screenshot2.png'),
+      },
+    ]),
     reporters: [mockReporter],
   });
 
@@ -64,13 +34,8 @@ test('diffs images correctly', async () => {
 });
 
 it('matches up screenshots with the same key', async () => {
-  const screenshot1 = await fs.readFile(
-    path.join(__dirname, 'screenshot1.png'),
-  );
-
-  const screenshot2 = await fs.readFile(
-    path.join(__dirname, 'screenshot2.png'),
-  );
+  const screenshot1 = await getExampleScreenshot('screenshot1.png');
+  const screenshot2 = await getExampleScreenshot('screenshot2.png');
 
   const before = new MockBackend([
     {
@@ -111,9 +76,7 @@ it('matches up screenshots with the same key', async () => {
 });
 
 it('handles when either a before or after screenshot is not present', async () => {
-  const beforeScreenshot = await fs.readFile(
-    path.join(__dirname, 'screenshot1.png'),
-  );
+  const beforeScreenshot = await getExampleScreenshot('screenshot1.png');
 
   const before = new MockBackend([
     {

@@ -3,26 +3,12 @@ import tempy from 'tempy';
 import fs from 'fs-extra';
 import path from 'path';
 import FileBackend from '../FileBackend';
-
-async function asyncIterableToArray<T>(
-  iterable: AsyncIterable<T>,
-): Promise<T[]> {
-  const items: T[] = [];
-
-  for await (const item of iterable) {
-    items.push(item);
-  }
-
-  return items;
-}
-
-const getExampleScreenshot = () =>
-  fs.readFile(path.join(__dirname, 'exampleScreenshot.png'));
+import { getExampleScreenshot, asyncIterableToArray } from '../../test-utils';
 
 test('backend correctly reads baselines written by the reporter', async () => {
   const tmpDir = tempy.directory();
 
-  const exampleScreenshot = await getExampleScreenshot();
+  const exampleScreenshot = await getExampleScreenshot('screenshot1.png');
 
   const reporter = new FilesystemReporter({
     directory: tmpDir,
@@ -72,7 +58,7 @@ test('previous baselines are cleared when updating them', async () => {
 test('baselines only update if passed-in condition is true', async () => {
   const tmpDir = tempy.directory();
 
-  const exampleScreenshot = await getExampleScreenshot();
+  const exampleScreenshot = await getExampleScreenshot('screenshot1.png');
 
   const reporter = new FilesystemReporter({
     directory: tmpDir,
