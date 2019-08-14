@@ -1,12 +1,11 @@
+import { isEqual } from 'lodash';
 import {
   MockBackend,
   getExampleScreenshot,
   asyncIterableToArray,
 } from '../../test-utils';
 import { Screenshot } from '../Backend';
-import fs from 'fs-extra';
 import { CompositeBackend } from '../combinators';
-import { isEqual } from 'lodash';
 
 describe('CompositeBackend', () => {
   it('yields screenshots from all backends', async () => {
@@ -52,4 +51,8 @@ describe('CompositeBackend', () => {
       );
     }
   });
+});
+
+describe('MatrixBackend', () => {
+  it.todo('yields items from backends of all combinations of matrix');
 });
