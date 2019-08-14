@@ -34,6 +34,10 @@ class CompositeBackend implements Backend {
 }
 
 const config1: Configuration = {
+  before: new PuppeteerBackend({
+    screenWidth: 1024,
+    urls: [],
+  }),
   after: new MatrixBackend(
     { screenWidth: [400, 1024, 1280] },
     ({ screenWidth }) =>
@@ -42,4 +46,5 @@ const config1: Configuration = {
         urls: [],
       }),
   ),
+  reporters: [],
 };

@@ -10,7 +10,8 @@
     "test": "npm-run-all test:*",
     "test:unit": "jest",
     "test:prettier": "prettier --check '**/*.{js,ts}'",
-    "format": "prettier --write '**/*.{js,ts}'"
+    "format": "prettier --write '**/*.{js,ts}'",
+    "build": "tsc"
   },
   "dependencies": {
     "@types/fs-extra": "^8.0.0",
