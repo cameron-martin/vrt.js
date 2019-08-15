@@ -1,0 +1,8 @@
+{
+    "name": "@vrt.js/page-backend",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "dependencies": {
+        "@vrt.js/core": "^0.0.1"
+    }
+}

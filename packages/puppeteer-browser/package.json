@@ -1,0 +1,10 @@
+{
+    "name": "@vrt.js/puppeteer-browser",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "dependencies": {
+        "@types/puppeteer": "^1.19.1",
+        "@vrt.js/core": "^0.0.1",
+        "puppeteer": "^1.19.0"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "@vrt.js/website-reporter",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "dependencies": {
+        "@types/ejs": "^2.6.3",
+        "@types/fs-extra": "^8.0.0",
+        "@vrt.js/core": "^0.0.1",
+        "ejs": "^2.6.2",
+        "fs-extra": "^8.1.0"
+    }
+}

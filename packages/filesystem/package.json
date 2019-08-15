@@ -1,0 +1,17 @@
+{
+    "name": "@vrt.js/filesystem",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "dependencies": {
+        "@types/fs-extra": "^8.0.0",
+        "@types/lodash": "^4.14.136",
+        "@types/uuid": "^3.4.5",
+        "@types/yargs": "^13.0.2",
+        "@vrt.js/core": "^0.0.1",
+        "fs-extra": "^8.1.0",
+        "lodash": "^4.17.15",
+        "runtypes": "^4.0.1",
+        "uuid": "^3.3.2",
+        "yargs": "^13.3.0"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "@vrt.js/cli",
+    "version": "0.0.1",
+    "bin": {
+        "vrt.js": "./dist/index.js"
+    },
+    "dependencies": {
+        "@types/yargs": "^13.0.2",
+        "@vrt.js/core": "^0.0.1",
+        "yargs": "^13.3.0"
+    }
+}
