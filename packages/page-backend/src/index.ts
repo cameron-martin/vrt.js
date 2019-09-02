@@ -6,7 +6,7 @@ export interface Config {
    */
   urls: string[];
   /**
-   * Whether new urls are discovered
+   * Whether new urls are discovered by looking at links on pages.
    */
   discoverUrls?: boolean;
   browser: Browser;

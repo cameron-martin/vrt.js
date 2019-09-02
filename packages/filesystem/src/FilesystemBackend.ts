@@ -7,7 +7,7 @@ import { Manifest } from './Manifest';
 /**
  * Uses screenshots stored on the filesystem as one side of the comparison
  */
-export default class FileBackend implements Backend {
+export default class FilesystemBackend implements Backend {
   private readonly manifestPath: string;
   constructor(directory: string) {
     this.manifestPath = path.join(directory, 'manifest.json');

@@ -1,4 +1,4 @@
-import { FilesystemReporter, FileBackend } from '../';
+import { FilesystemReporter, FilesystemBackend } from '../';
 import tempy from 'tempy';
 import fs from 'fs-extra';
 import path from 'path';
@@ -29,7 +29,7 @@ test('backend correctly reads baselines written by the reporter', async () => {
     ],
   });
 
-  const backend = new FileBackend(tmpDir);
+  const backend = new FilesystemBackend(tmpDir);
 
   const screenshots = await asyncIterableToArray(backend.getScreenshots());
 
