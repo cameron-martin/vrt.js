@@ -6,20 +6,29 @@ interface Config {
 }
 
 export default class PuppeteerBrowser implements Browser {
+  readonly properties = { screenWidth: this.config.screenWidth };
+
   constructor(private readonly config: Config) {}
 
   async createSession(): Promise<BrowserSession> {
     const browser = await puppeteer.launch();
 
-    return new PuppeteerBrowserSession(browser, await browser.newPage());
+    return new PuppeteerBrowserSession(
+      this.config,
+      browser,
+      await browser.newPage(),
+    );
   }
 }
 
 export class PuppeteerBrowserSession implements BrowserSession {
   constructor(
+    private readonly config: Config,
     private readonly browser: puppeteer.Browser,
     private readonly page: puppeteer.Page,
-  ) {}
+  ) {
+    this.page.setViewport({ width: this.config.screenWidth, height: 500 });
+  }
 
   async goTo(url: string): Promise<void> {
     await this.page.goto(url);
@@ -31,7 +40,7 @@ export class PuppeteerBrowserSession implements BrowserSession {
 
   async getLinks(): Promise<string[]> {
     const hrefs = await this.page.$$eval('a', elements =>
-      elements.map(element => element.getAttribute('href')),
+      elements.map(element => (element as HTMLAnchorElement).href),
     );
 
     return hrefs.filter(href => href != null) as string[];

@@ -3,6 +3,22 @@ import combineAsyncIterators from 'combine-async-iterators';
 
 type ArrayValues<T> = { [K in keyof T]: T[K][] };
 
+function objectCombinations<T>(matrix: ArrayValues<T>): T[] {
+  const keys = Object.keys(matrix) as (keyof T)[];
+
+  if (keys.length === 0) return [{} as any];
+
+  const headKey = keys[0];
+
+  const { [headKey]: headValues, ...rest } = matrix;
+
+  const restCombinations: any[] = objectCombinations(rest as any);
+
+  return headValues.flatMap(headValue =>
+    restCombinations.map(x => ({ [headKey]: headValue, ...x })),
+  );
+}
+
 /**
  * Creates a backend from all combinations of a configuration matrix.
  *
@@ -13,7 +29,11 @@ export class MatrixBackend<T> implements Backend {
   private readonly backend: CompositeBackend;
 
   constructor(matrix: ArrayValues<T>, generator: (properties: T) => Backend) {
-    this.backend = new CompositeBackend([]);
+    const combinations = objectCombinations(matrix);
+
+    this.backend = new CompositeBackend(
+      combinations.map(combination => generator(combination)),
+    );
   }
 
   getScreenshots(): AsyncIterableIterator<Screenshot> {

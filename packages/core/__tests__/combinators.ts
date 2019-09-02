@@ -4,7 +4,7 @@ import {
   getExampleScreenshot,
   asyncIterableToArray,
 } from '../../../test-utils';
-import { Screenshot, CompositeBackend } from '..';
+import { Screenshot, CompositeBackend, MatrixBackend } from '..';
 
 describe('CompositeBackend', () => {
   it('yields screenshots from all backends', async () => {
@@ -53,5 +53,27 @@ describe('CompositeBackend', () => {
 });
 
 describe('MatrixBackend', () => {
-  it.todo('yields items from backends of all combinations of matrix');
+  it('yields items from backends of all combinations of matrix', async () => {
+    const image = await getExampleScreenshot('screenshot2.png');
+
+    const backend = new MatrixBackend(
+      { screenWidth: [400, 1024], browser: ['Chrome', 'Firefox'] },
+      ({ screenWidth, browser }) =>
+        new MockBackend([{ key: { screenWidth, browser }, image }]),
+    );
+
+    const screenshots = await asyncIterableToArray(backend.getScreenshots());
+
+    expect(screenshots.length).toBe(4);
+    [
+      { screenWidth: 400, browser: 'Chrome' },
+      { screenWidth: 400, browser: 'Firefox' },
+      { screenWidth: 1024, browser: 'Chrome' },
+      { screenWidth: 1024, browser: 'Firefox' },
+    ].forEach(expectedKey => {
+      expect(
+        screenshots.some(screenshot => isEqual(screenshot.key, expectedKey)),
+      );
+    });
+  });
 });

@@ -49,6 +49,7 @@ export default class PageBackend implements Backend {
         yield {
           key: {
             path,
+            ...this.config.browser.properties,
           },
           image: await session.takeScreenshot(),
         };
