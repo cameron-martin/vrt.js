@@ -8,16 +8,22 @@ import { run } from '../';
 test('diffs images correctly', async () => {
   const mockReporter = new MockReporter();
 
+  const properties = {
+    key: 'my-screenshot',
+    browser: 'chrome',
+    viewportWidth: 1024,
+  };
+
   await run({
     before: new MockBackend([
       {
-        key: { name: 'my-screenshot' },
+        properties,
         image: await getExampleScreenshot('screenshot1.png'),
       },
     ]),
     after: new MockBackend([
       {
-        key: { name: 'my-screenshot' },
+        properties,
         image: await getExampleScreenshot('screenshot2.png'),
       },
     ]),
@@ -33,32 +39,37 @@ test('diffs images correctly', async () => {
   expect(screenshot.mismatchPercentage).toMatchInlineSnapshot(`7.08`);
 });
 
-it('matches up screenshots with the same key', async () => {
-  const screenshot1 = await getExampleScreenshot('screenshot1.png');
-  const screenshot2 = await getExampleScreenshot('screenshot2.png');
+it('matches up screenshots with the same properties', async () => {
+  const screenshot1 = {
+    properties: {
+      key: 'my-screenshot-1',
+      browser: 'chrome',
+      viewportWidth: 1024,
+    },
+    image: await getExampleScreenshot('screenshot1.png'),
+  };
 
-  const before = new MockBackend([
-    {
-      key: { name: 'my-screenshot-1' },
-      image: screenshot1,
+  const screenshot2 = {
+    properties: {
+      key: 'my-screenshot-1',
+      browser: 'firefox',
+      viewportWidth: 1024,
     },
-    {
-      key: { name: 'my-screenshot-2' },
-      image: screenshot2,
-    },
-  ]);
+    image: await getExampleScreenshot('screenshot2.png'),
+  };
 
-  // These screenshots do not arrive in the same order as above.
-  const after = new MockBackend([
-    {
-      key: { name: 'my-screenshot-2' },
-      image: screenshot2,
+  const screenshot3 = {
+    properties: {
+      key: 'my-screenshot-2',
+      browser: 'chrome',
+      viewportWidth: 1024,
     },
-    {
-      key: { name: 'my-screenshot-1' },
-      image: screenshot1,
-    },
-  ]);
+    image: await getExampleScreenshot('screenshot3.png'),
+  };
+
+  // Note that the screenshots arrive out-of-order
+  const before = new MockBackend([screenshot1, screenshot2, screenshot3]);
+  const after = new MockBackend([screenshot3, screenshot2, screenshot1]);
 
   const mockReporter = new MockReporter();
 
@@ -80,7 +91,11 @@ it('handles when either a before or after screenshot is not present', async () =
 
   const before = new MockBackend([
     {
-      key: { name: 'my-screenshot' },
+      properties: {
+        key: 'my-screenshot',
+        browser: 'chrome',
+        viewportWidth: 1024,
+      },
       image: beforeScreenshot,
     },
   ]);
@@ -104,7 +119,11 @@ it('handles when either a before or after screenshot is not present', async () =
   expect(screenshot.after).toBeNull();
   expect(screenshot.diff).toBeNull();
   expect(screenshot.mismatchPercentage).toBe(100);
-  expect(screenshot.key).toEqual({ name: 'my-screenshot' });
+  expect(screenshot.properties).toEqual({
+    key: 'my-screenshot',
+    browser: 'chrome',
+    viewportWidth: 1024,
+  });
 });
 
 it('gives the report to all reporters', async () => {

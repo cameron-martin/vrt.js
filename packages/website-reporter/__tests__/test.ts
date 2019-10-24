@@ -17,21 +17,21 @@ it('matches snapshot', async () => {
   const report: Report = {
     screenshots: [
       {
-        key: { path: '/foo' },
+        properties: { key: '/foo', browser: 'Chrome', viewportWidth: 1024 },
         before: exampleScreenshot,
         after: exampleScreenshot,
         diff: exampleScreenshot,
         mismatchPercentage: 0,
       },
       {
-        key: { path: '/bar' },
+        properties: { key: '/bar', browser: 'Chrome', viewportWidth: 1024 },
         before: exampleScreenshot,
         after: null,
         diff: null,
         mismatchPercentage: 100,
       },
       {
-        key: { path: '/baz' },
+        properties: { key: '/baz', browser: 'Chrome', viewportWidth: 1024 },
         before: exampleScreenshot,
         after: exampleScreenshot,
         diff: exampleScreenshot,

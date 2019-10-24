@@ -5,11 +5,11 @@ import WebsiteReporter from '@vrt.js/website-reporter';
 
 const createBackend = (build: string) =>
   new MatrixBackend(
-    { screenWidth: [400, 1024, 1280] },
-    ({ screenWidth }) =>
+    { viewportWidth: [400, 1024, 1280] },
+    ({ viewportWidth }) =>
       new PageBackend({
         browser: new PuppeteerBrowser({
-          screenWidth,
+          viewportWidth,
         }),
         urls: [`http://localhost:1234/${build}/`],
         prefix: `http://localhost:1234/${build}/`,

@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import memoize from 'lodash/memoize';
 import { Backend, Screenshot } from '@vrt.js/core';
 import path from 'path';
-import { Manifest } from './Manifest';
+import { Manifest, getManifestPath } from './Manifest';
 
 /**
  * Uses screenshots stored on the filesystem as one side of the comparison
@@ -10,10 +10,10 @@ import { Manifest } from './Manifest';
 export default class FilesystemBackend implements Backend {
   private readonly manifestPath: string;
   constructor(directory: string) {
-    this.manifestPath = path.join(directory, 'manifest.json');
+    this.manifestPath = getManifestPath(directory);
   }
 
-  private getManifest: () => Promise<Manifest> = memoize(async () => {
+  private getManifest = memoize(async () => {
     const contents = JSON.parse(await fs.readFile(this.manifestPath, 'utf8'));
 
     return Manifest.check(contents);
@@ -29,7 +29,7 @@ export default class FilesystemBackend implements Backend {
 
       yield {
         image,
-        key: entry.key,
+        properties: entry.properties,
       };
     }
   }

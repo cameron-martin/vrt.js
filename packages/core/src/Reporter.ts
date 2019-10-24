@@ -1,11 +1,11 @@
-import { ScreenshotKey } from './Backend';
+import { ScreenshotProperties } from './Backend';
 
 export interface Report {
   screenshots: ScreenshotReport[];
 }
 
 export interface ScreenshotReport {
-  key: ScreenshotKey;
+  properties: ScreenshotProperties;
   before: Buffer | null;
   after: Buffer | null;
   diff: Buffer | null;

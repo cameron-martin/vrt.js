@@ -23,7 +23,11 @@ test('backend correctly reads baselines written by the reporter', async () => {
         before: exampleScreenshot,
         after: exampleScreenshot,
         diff: exampleScreenshot,
-        key: { name: 'placeholder-image' },
+        properties: {
+          key: 'placeholder-image',
+          browser: 'chrome',
+          viewportWidth: 1024,
+        },
         mismatchPercentage: 0,
       },
     ],
@@ -34,7 +38,14 @@ test('backend correctly reads baselines written by the reporter', async () => {
   const screenshots = await asyncIterableToArray(backend.getScreenshots());
 
   expect(screenshots).toEqual([
-    { key: { name: 'placeholder-image' }, image: exampleScreenshot },
+    {
+      properties: {
+        key: 'placeholder-image',
+        browser: 'chrome',
+        viewportWidth: 1024,
+      },
+      image: exampleScreenshot,
+    },
   ]);
 });
 
@@ -73,7 +84,11 @@ test('baselines only update if passed-in condition is true', async () => {
         before: exampleScreenshot,
         after: exampleScreenshot,
         diff: exampleScreenshot,
-        key: { name: 'placeholder-image' },
+        properties: {
+          key: 'placeholder-image',
+          browser: 'chrome',
+          viewportWidth: 1024,
+        },
         mismatchPercentage: 0,
       },
     ],

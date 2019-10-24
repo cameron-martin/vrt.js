@@ -10,22 +10,22 @@ describe('CompositeBackend', () => {
   it('yields screenshots from all backends', async () => {
     const chromeScreenshots: Screenshot[] = [
       {
-        key: { browser: 'chrome', id: '1' },
+        properties: { key: '1', browser: 'chrome', viewportWidth: 1024 },
         image: await getExampleScreenshot('screenshot1.png'),
       },
       {
-        key: { browser: 'chrome', id: '2' },
+        properties: { key: '2', browser: 'chrome', viewportWidth: 1024 },
         image: await getExampleScreenshot('screenshot2.png'),
       },
     ];
 
     const firefoxScreenshots: Screenshot[] = [
       {
-        key: { browser: 'firefox', id: '1' },
+        properties: { key: '1', browser: 'firefox', viewportWidth: 1024 },
         image: await getExampleScreenshot('screenshot1.png'),
       },
       {
-        key: { browser: 'firefox', id: '2' },
+        properties: { key: '2', browser: 'firefox', viewportWidth: 1024 },
         image: await getExampleScreenshot('screenshot2.png'),
       },
     ];
@@ -57,22 +57,26 @@ describe('MatrixBackend', () => {
     const image = await getExampleScreenshot('screenshot2.png');
 
     const backend = new MatrixBackend(
-      { screenWidth: [400, 1024], browser: ['Chrome', 'Firefox'] },
-      ({ screenWidth, browser }) =>
-        new MockBackend([{ key: { screenWidth, browser }, image }]),
+      { viewportWidth: [400, 1024], browser: ['Chrome', 'Firefox'] },
+      ({ viewportWidth, browser }) =>
+        new MockBackend([
+          { properties: { key: 'test-image', viewportWidth, browser }, image },
+        ]),
     );
 
     const screenshots = await asyncIterableToArray(backend.getScreenshots());
 
     expect(screenshots.length).toBe(4);
     [
-      { screenWidth: 400, browser: 'Chrome' },
-      { screenWidth: 400, browser: 'Firefox' },
-      { screenWidth: 1024, browser: 'Chrome' },
-      { screenWidth: 1024, browser: 'Firefox' },
+      { key: 'test-image', viewportWidth: 400, browser: 'Chrome' },
+      { key: 'test-image', viewportWidth: 400, browser: 'Firefox' },
+      { key: 'test-image', viewportWidth: 1024, browser: 'Chrome' },
+      { key: 'test-image', viewportWidth: 1024, browser: 'Firefox' },
     ].forEach(expectedKey => {
       expect(
-        screenshots.some(screenshot => isEqual(screenshot.key, expectedKey)),
+        screenshots.some(screenshot =>
+          isEqual(screenshot.properties, expectedKey),
+        ),
       );
     });
   });

@@ -28,7 +28,7 @@ export default class FilesystemReporter implements Reporter {
 
         return {
           image: path.relative(manifestPath, screenshotPath),
-          key: screenshot.key,
+          properties: screenshot.properties,
         };
       }),
     );

@@ -4,7 +4,11 @@ import path from 'path';
 export const Manifest = t.Array(
   t.Record({
     image: t.String,
-    key: t.Dictionary(t.Union(t.String, t.Number)),
+    properties: t.Record({
+      key: t.String,
+      browser: t.String,
+      viewportWidth: t.Number,
+    }),
   }),
 );
 

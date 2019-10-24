@@ -18,7 +18,7 @@ exports[`matches snapshot 1`] = `
     <body>
         
             <details>
-                <summary>{&#34;path&#34;:&#34;/foo&#34;}</summary>
+                <summary>{&#34;key&#34;:&#34;/foo&#34;,&#34;browser&#34;:&#34;Chrome&#34;,&#34;viewportWidth&#34;:1024}</summary>
                 <div class=\\"screenshots\\">
                     <div class=\\"screenshot\\">
                         <h2>Before</h2>
@@ -36,7 +36,7 @@ exports[`matches snapshot 1`] = `
             </details>
         
             <details>
-                <summary>{&#34;path&#34;:&#34;/bar&#34;}</summary>
+                <summary>{&#34;key&#34;:&#34;/bar&#34;,&#34;browser&#34;:&#34;Chrome&#34;,&#34;viewportWidth&#34;:1024}</summary>
                 <div class=\\"screenshots\\">
                     <div class=\\"screenshot\\">
                         <h2>Before</h2>
@@ -54,7 +54,7 @@ exports[`matches snapshot 1`] = `
             </details>
         
             <details>
-                <summary>{&#34;path&#34;:&#34;/baz&#34;}</summary>
+                <summary>{&#34;key&#34;:&#34;/baz&#34;,&#34;browser&#34;:&#34;Chrome&#34;,&#34;viewportWidth&#34;:1024}</summary>
                 <div class=\\"screenshots\\">
                     <div class=\\"screenshot\\">
                         <h2>Before</h2>

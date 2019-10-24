@@ -2,11 +2,12 @@ import { Browser, BrowserSession } from '@vrt.js/core';
 import puppeteer from 'puppeteer';
 
 interface Config {
-  screenWidth: number;
+  viewportWidth: number;
 }
 
 export default class PuppeteerBrowser implements Browser {
-  readonly properties = { screenWidth: this.config.screenWidth };
+  readonly name = 'Chrome';
+  readonly viewportWidth = this.config.viewportWidth;
 
   constructor(private readonly config: Config) {}
 
@@ -27,7 +28,7 @@ export class PuppeteerBrowserSession implements BrowserSession {
     private readonly browser: puppeteer.Browser,
     private readonly page: puppeteer.Page,
   ) {
-    this.page.setViewport({ width: this.config.screenWidth, height: 500 });
+    this.page.setViewport({ width: this.config.viewportWidth, height: 500 });
   }
 
   async goTo(url: string): Promise<void> {

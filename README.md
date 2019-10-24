@@ -33,7 +33,7 @@ const WebsiteReporter = require('@vrt.js/website-reporter').default;
 module.exports = {
     before: new PageBackend({
         browser: new PuppeteerBrowser({
-            screenWidth: 1920,
+            viewportWidth: 1920,
         }),
         urls: [`https://my-site.com/`],
         prefix: `https://my-site.com/`,

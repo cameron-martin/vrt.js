@@ -60,7 +60,7 @@ export default async function run(configuration: Configuration): Promise<void> {
       backend.getScreenshots(),
     ),
     // TODO: Ensure properties are ordered
-    item => JSON.stringify(item.key),
+    item => JSON.stringify(item.properties),
   );
 
   const screenshotReports: ScreenshotReport[] = [];
@@ -70,11 +70,11 @@ export default async function run(configuration: Configuration): Promise<void> {
     items: [beforeScreenshot, afterScreenshot],
   } of matchings) {
     // TODO: Make keys not serialised when doing the join
-    const key = JSON.parse(serialisedKey);
+    const properties = JSON.parse(serialisedKey);
 
     if (beforeScreenshot == null || afterScreenshot == null) {
       screenshotReports.push({
-        key,
+        properties,
         mismatchPercentage: 100,
         before: beforeScreenshot && beforeScreenshot.image,
         after: afterScreenshot && afterScreenshot.image,
@@ -87,7 +87,7 @@ export default async function run(configuration: Configuration): Promise<void> {
       );
 
       screenshotReports.push({
-        key,
+        properties,
         mismatchPercentage: Number.parseFloat(diffResult.misMatchPercentage),
         before: beforeScreenshot.image,
         after: afterScreenshot.image,

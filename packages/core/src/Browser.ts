@@ -1,6 +1,7 @@
 export interface Browser {
   createSession(): Promise<BrowserSession>;
-  properties: Record<string, string | number>;
+  name: string;
+  viewportWidth: number;
 }
 
 /**
