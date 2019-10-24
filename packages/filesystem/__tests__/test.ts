@@ -1,4 +1,4 @@
-import { FilesystemReporter, FilesystemBackend } from '../';
+import { saveBaselines, FilesystemBackend } from '../';
 import tempy from 'tempy';
 import fs from 'fs-extra';
 import path from 'path';
@@ -12,12 +12,7 @@ test('backend correctly reads baselines written by the reporter', async () => {
 
   const exampleScreenshot = await getExampleScreenshot('screenshot1.png');
 
-  const reporter = new FilesystemReporter({
-    directory: tmpDir,
-    if: () => true,
-  });
-
-  await reporter.report({
+  const report = {
     screenshots: [
       {
         before: exampleScreenshot,
@@ -31,6 +26,11 @@ test('backend correctly reads baselines written by the reporter', async () => {
         mismatchPercentage: 0,
       },
     ],
+  };
+
+  await saveBaselines(report, {
+    directory: tmpDir,
+    if: () => true,
   });
 
   const backend = new FilesystemBackend(tmpDir);
@@ -56,13 +56,13 @@ test('previous baselines are cleared when updating them', async () => {
 
   await fs.writeFile(existingFile, '');
 
-  const reporter = new FilesystemReporter({
+  const report = {
+    screenshots: [],
+  };
+
+  await saveBaselines(report, {
     directory: tmpDir,
     if: () => true,
-  });
-
-  await reporter.report({
-    screenshots: [],
   });
 
   expect(await fs.pathExists(existingFile)).toBe(false);
@@ -73,12 +73,7 @@ test('baselines only update if passed-in condition is true', async () => {
 
   const exampleScreenshot = await getExampleScreenshot('screenshot1.png');
 
-  const reporter = new FilesystemReporter({
-    directory: tmpDir,
-    if: () => false,
-  });
-
-  await reporter.report({
+  const report = {
     screenshots: [
       {
         before: exampleScreenshot,
@@ -92,6 +87,11 @@ test('baselines only update if passed-in condition is true', async () => {
         mismatchPercentage: 0,
       },
     ],
+  };
+
+  await saveBaselines(report, {
+    directory: tmpDir,
+    if: () => false,
   });
 
   expect(await fs.readdir(tmpDir)).toHaveLength(0);

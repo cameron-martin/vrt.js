@@ -11,7 +11,3 @@ export interface ScreenshotReport {
   diff: Buffer | null;
   mismatchPercentage: number;
 }
-
-export interface Reporter {
-  report(report: Report): Promise<void>;
-}

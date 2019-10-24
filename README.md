@@ -27,8 +27,8 @@ For example, assume you have the file `config.js` in the current directory:
 ```js
 const PuppeteerBrowser = require('@vrt.js/puppeteer-browser').default;
 const PageBackend = require('@vrt.js/page-backend').default;
-const { FilesystemBackend, FilesystemReporter } = require('@vrt.js/filesystem');
-const WebsiteReporter = require('@vrt.js/website-reporter').default;
+const { writeBaselines, FilesystemBackend } = require('@vrt.js/filesystem');
+const { generateReport } = require('@vrt.js/website-reporter');
 
 module.exports = {
     before: new PageBackend({
@@ -40,14 +40,15 @@ module.exports = {
         discoverUrls: true,
     }),
     after: new FilesystemBackend('./baselines'),
-    reporters: [
-        new WebsiteReporter({
-            outputDirectory: './report',
-        }),
-        new FilesystemReporter({
+    async report(report) {
+        await writeBaselines(report, {
             directory: './baselines',
-        }),
-    ],
+        });
+
+        await generateReport(report, {
+            outputDirectory: './report',
+        });
+    },
 };
 ```
 

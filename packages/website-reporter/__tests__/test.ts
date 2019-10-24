@@ -1,4 +1,4 @@
-import WebsiteReporter from '../';
+import { generateReport } from '../';
 import tempy from 'tempy';
 import { Report } from '@vrt.js/core';
 import fs from 'fs-extra';
@@ -7,10 +7,6 @@ import { getExampleScreenshot } from '../../../test-utils';
 
 it('matches snapshot', async () => {
   const outputDirectory = tempy.directory();
-
-  const websiteReporter = new WebsiteReporter({
-    outputDirectory,
-  });
 
   const exampleScreenshot = await getExampleScreenshot('screenshot1.png');
 
@@ -40,7 +36,9 @@ it('matches snapshot', async () => {
     ],
   };
 
-  await websiteReporter.report(report);
+  await generateReport(report, {
+    outputDirectory,
+  });
 
   expect(
     await fs.readFile(path.join(outputDirectory, 'index.html'), 'utf8'),

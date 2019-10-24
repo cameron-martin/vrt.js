@@ -1,7 +1,7 @@
 import { Configuration } from './Configuration';
 import compareImages from 'resemblejs/compareImages';
 import combineAsyncIterators from 'combine-async-iterators';
-import { ScreenshotReport } from './Reporter';
+import { ScreenshotReport } from './Report';
 
 interface JoinResult<K, T> {
   key: K;
@@ -96,11 +96,7 @@ export default async function run(configuration: Configuration): Promise<void> {
     }
   }
 
-  await Promise.all(
-    configuration.reporters.map(reporter =>
-      reporter.report({
-        screenshots: screenshotReports,
-      }),
-    ),
-  );
+  await configuration.report({
+    screenshots: screenshotReports,
+  });
 }

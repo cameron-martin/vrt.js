@@ -1,32 +1,12 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { Backend, Screenshot, Reporter, Report } from '@vrt.js/core';
+import { Backend, Screenshot } from '@vrt.js/core';
 
 export class MockBackend implements Backend {
   constructor(private readonly screenshots: Screenshot[]) {}
   async *getScreenshots() {
     for (const screenshot of this.screenshots) {
       yield screenshot;
-    }
-  }
-}
-
-export class MockReporter implements Reporter {
-  private _report: Report | undefined;
-
-  async report(report: Report): Promise<void> {
-    if (!this._report) {
-      this._report = report;
-    } else {
-      throw new Error('Reporter was called multiple times');
-    }
-  }
-
-  getReport(): Report {
-    if (this._report) {
-      return this._report;
-    } else {
-      throw new Error('Reporter was not called yet');
     }
   }
 }

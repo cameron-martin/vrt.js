@@ -1,8 +1,8 @@
 import { Backend } from './Backend';
-import { Reporter } from './Reporter';
+import { Report } from './Report';
 
 export interface Configuration {
   before: Backend;
   after: Backend;
-  reporters: Reporter[];
+  report(report: Report): Promise<void> | void;
 }
