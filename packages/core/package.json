@@ -4,6 +4,6 @@
     "main": "dist/index.js",
     "dependencies": {
         "combine-async-iterators": "^1.1.1",
-        "resemblejs": "^3.2.0"
+        "resemblejs": "^3.2.5"
     }
 }

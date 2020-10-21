@@ -1789,10 +1789,10 @@ camelcase@^5.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-canvas@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/canvas/-/canvas-2.6.0.tgz#7a8f87b6148845d97e6ee30947fba1508bed4941"
-  integrity sha512-bEO9f1ThmbknLPxCa8Es7obPlN9W3stB1bo7njlhOFKIdUTldeTqXCh9YclCPAi2pSQs84XA0jq/QEZXSzgyMw==
+canvas@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/canvas/-/canvas-2.6.1.tgz#0d087dd4d60f5a5a9efa202757270abea8bef89e"
+  integrity sha512-S98rKsPcuhfTcYbtF53UIJhcbgIAK533d1kJKMwsMwAIFgfd58MOyxRud3kktlzWiEkFliaJtvyZCBtud/XVEA==
   dependencies:
     nan "^2.14.0"
     node-pre-gyp "^0.11.0"
@@ -5588,12 +5588,12 @@ require-main-filename@^2.0.0:
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
 
-resemblejs@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/resemblejs/-/resemblejs-3.2.0.tgz#44d822422b593ddd6e3ed50e7a6fdf63478556a5"
-  integrity sha512-2kPlQaYaj6EM1Ck6JMEuM5DWbY95bvQy2hEivdUZ8efoy/aFSrxI89B+wbbkKnXdWbWk/15jEHIyh2g6D2JTRQ==
+resemblejs@^3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/resemblejs/-/resemblejs-3.2.5.tgz#16490335b5b74981a1c2262592f1a601cde6be83"
+  integrity sha512-k71G38hkO1+9CAWUY4oWmXAMM/L0HdQbXFF3twfVcbFYU1n9pWAd4DUCCV+soeQbsJA50dgrwrkESmlbOl+tqg==
   dependencies:
-    canvas "2.6.0"
+    canvas "2.6.1"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
