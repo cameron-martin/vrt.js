@@ -17,8 +17,10 @@
     "cli": "vrt.js -r ts-node/register"
   },
   "devDependencies": {
+    "@types/express": "^4.17.8",
     "@types/jest": "^24.0.17",
     "@types/jest-image-snapshot": "^2.8.0",
+    "express": "^4.17.1",
     "jest": "^24.8.0",
     "jest-image-snapshot": "^2.9.0",
     "lerna": "^3.16.4",

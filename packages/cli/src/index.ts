@@ -9,12 +9,9 @@ process.on('unhandledRejection', error => {
   throw error;
 });
 
-const requireConfig = _module.createRequireFromPath(
-  path.join(process.cwd(), 'dummy-module.js'),
-);
-
 const getConfig = (configPath: string) => {
-  const config = requireConfig(configPath);
+  const absolutePath = path.resolve(process.cwd(), configPath);
+  const config = require(absolutePath);
 
   return config.__esModule ? config.default : config;
 };

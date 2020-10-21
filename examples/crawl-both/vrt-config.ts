@@ -11,8 +11,8 @@ const createBackend = (build: string) =>
         browser: new PuppeteerBrowser({
           viewportWidth,
         }),
-        urls: [`http://localhost:1234/${build}/`],
-        prefix: `http://localhost:1234/${build}/`,
+        urls: [`http://localhost:1234/${build}/index.html`],
+        prefix: `http://localhost:1234/${build}`,
         discoverUrls: true,
       }),
   );

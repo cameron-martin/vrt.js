@@ -57,7 +57,9 @@ async function getScreenshotViewModel(
         const id = generateId();
         const filePath = path.join(screenshotsDir, `${id}.png`);
 
-        await fs.writeFile(filePath, screenshot);
+        if(screenshot != null) {
+          await fs.writeFile(filePath, screenshot);
+        }
 
         return path.relative(path.dirname(reportUrl), filePath);
       },
