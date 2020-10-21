@@ -1,0 +1,11 @@
+<details class="report-item">
+    <summary>
+        <span class="key"><%= reportItem.properties.key %></span><br />
+        <span class="details">Browser: <%= reportItem.properties.browser %>, Viewport Width: <%= reportItem.properties.viewportWidth %></span>
+    </summary>
+    <div class="screenshots">
+        <%- include('screenshot', {title: 'Before', imageUrl: reportItem.before}); %>
+        <%- include('screenshot', {title: `Diff (${reportItem.mismatchPercentage}% mismatch)`, imageUrl: reportItem.diff}); %>
+        <%- include('screenshot', {title: `After`, imageUrl: reportItem.after}); %>
+    </div>
+</details>

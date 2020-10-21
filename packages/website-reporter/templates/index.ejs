@@ -3,6 +3,10 @@
     <head>
         <title>Vrt.js Report</title>
         <style>
+            .report-item {
+                margin-bottom: 2rem;
+            }
+
             .screenshots {
                 display: flex;
             }
@@ -10,27 +14,23 @@
             .screenshot {
                 width: calc(100% / 3);
             }
+
+            .key {
+                font-size: 2rem;
+            }
         </style>
     </head>
     <body>
-        <% for(const screenshot of screenshots) { %>
-            <details>
-                <summary><%= JSON.stringify(screenshot.properties) %></summary>
-                <div class="screenshots">
-                    <div class="screenshot">
-                        <h2>Before</h2>
-                        <a href="<%= screenshot.before %>"><img src="<%= screenshot.before %>"></a>
-                    </div>
-                    <div class="screenshot">
-                        <h2>Diff</h2>
-                        <a href="<%= screenshot.diff %>"><img src="<%= screenshot.diff %>"></a>
-                    </div>
-                    <div class="screenshot">
-                        <h2>After</h2>
-                        <a href="<%= screenshot.after %>"><img src="<%= screenshot.after %>"></a>
-                    </div>
-                </div>
-            </details>
+        <h1>Failed</h1>
+
+        <% for(const reportItem of failedItems) { %>
+            <%- include('reportItem', {reportItem: reportItem}); %>
+        <% } %>
+
+        <h1>Successful</h1>
+
+        <% for(const reportItem of successfulItems) { %>
+            <%- include('reportItem', {reportItem: reportItem}); %>
         <% } %>
     </body>
 </html>
