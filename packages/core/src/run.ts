@@ -25,13 +25,13 @@ async function* joinAsyncIterators<
   const buffers = iterators.map(() => new Map<K, T>());
 
   yield* combineAsyncIterators(
-    ...iterators.map(async function*(iterator, i) {
+    ...iterators.map(async function* (iterator, i) {
       for await (const item of iterator) {
         const key = keyGenerator(item);
         buffers[i].set(key, item);
 
-        if (buffers.every(buffer => buffer.has(key))) {
-          const items = buffers.map(buffer => {
+        if (buffers.every((buffer) => buffer.has(key))) {
+          const items = buffers.map((buffer) => {
             const item = buffer.get(key)!;
             buffer.delete(key);
             return item;
@@ -44,11 +44,11 @@ async function* joinAsyncIterators<
   );
 
   const remainingKeys = new Set(
-    buffers.flatMap(buffer => Array.from(buffer.keys())),
+    buffers.flatMap((buffer) => Array.from(buffer.keys())),
   );
 
   for (const key of remainingKeys) {
-    const items = buffers.map(buffer => buffer.get(key) || null);
+    const items = buffers.map((buffer) => buffer.get(key) || null);
 
     yield { key, items };
   }
@@ -79,11 +79,11 @@ function createCompare<T, R extends any[]>(
 
 export default async function run(configuration: Configuration): Promise<void> {
   const matchings = joinAsyncIterators(
-    [configuration.before, configuration.after].map(backend =>
+    [configuration.before, configuration.after].map((backend) =>
       backend.getScreenshots(),
     ),
     // TODO: Ensure properties are ordered
-    item => JSON.stringify(item.properties),
+    (item) => JSON.stringify(item.properties),
   );
 
   const screenshotReports: ScreenshotReport[] = [];
@@ -121,9 +121,9 @@ export default async function run(configuration: Configuration): Promise<void> {
 
   screenshotReports.sort(
     createCompare(
-      elem => elem.properties.key,
-      elem => elem.properties.browser,
-      elem => elem.properties.viewportWidth,
+      (elem) => elem.properties.key,
+      (elem) => elem.properties.browser,
+      (elem) => elem.properties.viewportWidth,
     ),
   );
 

@@ -5,7 +5,7 @@ export class Report {
 
   failOnMismatches() {
     if (
-      this.screenshots.some(screenshot => screenshot.mismatchPercentage !== 0)
+      this.screenshots.some((screenshot) => screenshot.mismatchPercentage !== 0)
     ) {
       throw new Error('Some screenshots have a mismatch');
     }

@@ -40,11 +40,11 @@ export class PuppeteerBrowserSession implements BrowserSession {
   }
 
   async getLinks(): Promise<string[]> {
-    const hrefs = await this.page.$$eval('a', elements =>
-      elements.map(element => (element as HTMLAnchorElement).href),
+    const hrefs = await this.page.$$eval('a', (elements) =>
+      elements.map((element) => (element as HTMLAnchorElement).href),
     );
 
-    return hrefs.filter(href => href != null) as string[];
+    return hrefs.filter((href) => href != null) as string[];
   }
 
   getCurrentUrl(): Promise<string> {

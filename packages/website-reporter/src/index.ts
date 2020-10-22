@@ -30,7 +30,7 @@ export async function generateReport(report: Report, config: Config) {
   const generateId = createIdGenerator();
 
   const reportItems = await Promise.all(
-    report.screenshots.map(screenshot =>
+    report.screenshots.map((screenshot) =>
       getReportItemViewModel(screenshot, screenshotsDir, reportUrl, generateId),
     ),
   );
@@ -52,7 +52,7 @@ function partitionReportItems(reportItems: ReportItemViewModel[]) {
   const failedItems: ReportItemViewModel[] = [];
   const successfulItems: ReportItemViewModel[] = [];
 
-  reportItems.forEach(reportItem => {
+  reportItems.forEach((reportItem) => {
     if (reportItem.mismatchPercentage === 0) {
       successfulItems.push(reportItem);
     } else {
@@ -71,7 +71,7 @@ async function getReportItemViewModel(
 ): Promise<ReportItemViewModel> {
   const [before, after, diff] = await Promise.all(
     [screenshot.before, screenshot.after, screenshot.diff].map(
-      async screenshot => {
+      async (screenshot) => {
         if (screenshot == null) {
           return null;
         }

@@ -5,7 +5,7 @@ import yargs from 'yargs';
 import _module from 'module';
 import path from 'path';
 
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', (error) => {
   throw error;
 });
 
@@ -31,7 +31,7 @@ const getConfig = (configPath: string) => {
     })
     .help().argv;
 
-  argv.require.forEach(file => {
+  argv.require.forEach((file) => {
     require(file);
   });
 

@@ -38,7 +38,6 @@ jest.setTimeout(60000);
 
 test('report matches baseline images', async () => {
   await runExample();
-  console.log((jest as any).snapshotState);
 
   const server = await runStaticServer(
     reportPort,

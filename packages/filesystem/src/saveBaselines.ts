@@ -14,7 +14,7 @@ export async function saveBaselines(report: Report, config: Config) {
   const manifestPath = getManifestPath(config.directory);
 
   const manifest: Manifest = await Promise.all(
-    report.screenshots.map(async screenshot => {
+    report.screenshots.map(async (screenshot) => {
       const id = uuid();
       const screenshotPath = path.join(config.directory, `${id}.png`);
 

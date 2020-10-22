@@ -14,8 +14,8 @@ function objectCombinations<T>(matrix: ArrayValues<T>): T[] {
 
   const restCombinations: any[] = objectCombinations(rest as any);
 
-  return headValues.flatMap(headValue =>
-    restCombinations.map(x => ({ [headKey]: headValue, ...x })),
+  return headValues.flatMap((headValue) =>
+    restCombinations.map((x) => ({ [headKey]: headValue, ...x })),
   );
 }
 
@@ -32,7 +32,7 @@ export class MatrixBackend<T> implements Backend {
     const combinations = objectCombinations(matrix);
 
     this.backend = new CompositeBackend(
-      combinations.map(combination => generator(combination)),
+      combinations.map((combination) => generator(combination)),
     );
   }
 
@@ -49,7 +49,7 @@ export class CompositeBackend implements Backend {
 
   getScreenshots(): AsyncIterableIterator<Screenshot> {
     return combineAsyncIterators(
-      ...this.backends.map(backend => backend.getScreenshots()),
+      ...this.backends.map((backend) => backend.getScreenshots()),
     );
   }
 }

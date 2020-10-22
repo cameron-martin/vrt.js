@@ -44,7 +44,7 @@ describe('CompositeBackend', () => {
     expect(outputScrenshots.length).toBe(inputScreenshots.length);
     for (const outputScreenshot of outputScrenshots) {
       expect(
-        inputScreenshots.some(inputScreenshot =>
+        inputScreenshots.some((inputScreenshot) =>
           isEqual(outputScreenshot, inputScreenshot),
         ),
       );
@@ -72,9 +72,9 @@ describe('MatrixBackend', () => {
       { key: 'test-image', viewportWidth: 400, browser: 'Firefox' },
       { key: 'test-image', viewportWidth: 1024, browser: 'Chrome' },
       { key: 'test-image', viewportWidth: 1024, browser: 'Firefox' },
-    ].forEach(expectedKey => {
+    ].forEach((expectedKey) => {
       expect(
-        screenshots.some(screenshot =>
+        screenshots.some((screenshot) =>
           isEqual(screenshot.properties, expectedKey),
         ),
       );

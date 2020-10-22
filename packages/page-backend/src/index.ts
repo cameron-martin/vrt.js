@@ -59,7 +59,7 @@ export default class PageBackend implements Backend {
 
         if (this.config.discoverUrls) {
           const newUrls = (await session.getLinks()).filter(
-            link => !visitedUrls.has(link),
+            (link) => !visitedUrls.has(link),
           );
 
           urlQueue.unshift(...newUrls);

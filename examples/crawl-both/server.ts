@@ -6,7 +6,7 @@ export async function runStaticServer(port: number, dir: string) {
 
   app.use(express.static(dir));
 
-  return new Promise<http.Server>(resolve => {
+  return new Promise<http.Server>((resolve) => {
     const server = app.listen(port);
     server.once('listening', () => {
       resolve(server);
