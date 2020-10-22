@@ -6,12 +6,9 @@ import { Manifest, getManifestPath } from './Manifest';
 
 interface Config {
   directory: string;
-  if(): boolean;
 }
 
 export async function saveBaselines(report: Report, config: Config) {
-  if (!config.if()) return;
-
   await fs.emptyDir(config.directory);
 
   const manifestPath = getManifestPath(config.directory);

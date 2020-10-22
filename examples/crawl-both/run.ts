@@ -1,19 +1,10 @@
 import { run } from '@vrt.js/core';
-import express from 'express';
-import path from 'path';
+import { runStaticServer } from './server';
 import vrtConfig from './vrt-config';
-
-function runServer() {
-  const app = express();
-  const port = 1234;
-
-  app.use(express.static(path.resolve(__dirname, 'site')));
-
-  return app.listen(port);
-}
+import path from 'path';
 
 export async function runExample() {
-  const server = runServer();
+  const server = await runStaticServer(1234, path.resolve(__dirname, 'site'));
 
   try {
     await run(vrtConfig);
@@ -21,5 +12,3 @@ export async function runExample() {
     server.close();
   }
 }
-
-runExample();

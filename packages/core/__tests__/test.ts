@@ -1,5 +1,5 @@
 import { MockBackend, getExampleScreenshot } from '../../../test-utils';
-import { run } from '../';
+import { Report, run } from '../';
 
 test('diffs images correctly', async () => {
   const report = jest.fn();
@@ -134,5 +134,68 @@ it('calls the report callback', async () => {
   });
 
   expect(report).toHaveBeenCalledTimes(1);
-  expect(report).toHaveBeenCalledWith({ screenshots: [] });
+  expect(report).toHaveBeenCalledWith(new Report([]));
+});
+
+it('sorts output by key, browser, viewportWidth', async () => {
+  const image = await getExampleScreenshot('screenshot1.png');
+
+  const backend = new MockBackend([
+    {
+      properties: { key: 'page1', browser: 'Firefox', viewportWidth: 1280 },
+      image,
+    },
+    {
+      properties: { key: 'page1', browser: 'Firefox', viewportWidth: 480 },
+      image,
+    },
+    {
+      properties: { key: 'page2', browser: 'Firefox', viewportWidth: 1280 },
+      image,
+    },
+    {
+      properties: { key: 'page2', browser: 'Firefox', viewportWidth: 480 },
+      image,
+    },
+    {
+      properties: { key: 'page1', browser: 'Chrome', viewportWidth: 1280 },
+      image,
+    },
+    {
+      properties: { key: 'page2', browser: 'Chrome', viewportWidth: 1280 },
+      image,
+    },
+    {
+      properties: { key: 'page2', browser: 'Chrome', viewportWidth: 480 },
+      image,
+    },
+    {
+      properties: { key: 'page1', browser: 'Chrome', viewportWidth: 480 },
+      image,
+    },
+  ]);
+
+  const report = jest.fn();
+
+  await run({
+    before: backend,
+    after: backend,
+    report,
+  });
+
+  expect(report).toHaveBeenCalledTimes(1);
+  expect(
+    report.mock.calls[0][0].screenshots.map(
+      (screenshot: any) => screenshot.properties,
+    ),
+  ).toEqual([
+    { key: 'page1', browser: 'Chrome', viewportWidth: 480 },
+    { key: 'page1', browser: 'Chrome', viewportWidth: 1280 },
+    { key: 'page1', browser: 'Firefox', viewportWidth: 480 },
+    { key: 'page1', browser: 'Firefox', viewportWidth: 1280 },
+    { key: 'page2', browser: 'Chrome', viewportWidth: 480 },
+    { key: 'page2', browser: 'Chrome', viewportWidth: 1280 },
+    { key: 'page2', browser: 'Firefox', viewportWidth: 480 },
+    { key: 'page2', browser: 'Firefox', viewportWidth: 1280 },
+  ]);
 });

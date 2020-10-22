@@ -1,7 +1,7 @@
 import { Configuration } from './Configuration';
 import compareImages from 'resemblejs/compareImages';
 import combineAsyncIterators from 'combine-async-iterators';
-import { ScreenshotReport } from './Report';
+import { Report, ScreenshotReport } from './Report';
 
 interface JoinResult<K, T> {
   key: K;
@@ -54,6 +54,29 @@ async function* joinAsyncIterators<
   }
 }
 
+type Selectors<T, R extends any[]> = { [K in keyof R]: (elem: T) => R[K] };
+
+function createCompare<T, R extends any[]>(
+  ...selectors: Selectors<T, R>
+): (a: T, b: T) => number {
+  return (a, b) => {
+    for (let i = 0; i < selectors.length; i++) {
+      const aSelected = selectors[i](a);
+      const bSelected = selectors[i](b);
+
+      if (aSelected < bSelected) {
+        return -1;
+      }
+
+      if (aSelected > bSelected) {
+        return 1;
+      }
+    }
+
+    return 0;
+  };
+}
+
 export default async function run(configuration: Configuration): Promise<void> {
   const matchings = joinAsyncIterators(
     [configuration.before, configuration.after].map(backend =>
@@ -96,7 +119,13 @@ export default async function run(configuration: Configuration): Promise<void> {
     }
   }
 
-  await configuration.report({
-    screenshots: screenshotReports,
-  });
+  screenshotReports.sort(
+    createCompare(
+      elem => elem.properties.key,
+      elem => elem.properties.browser,
+      elem => elem.properties.viewportWidth,
+    ),
+  );
+
+  await configuration.report(new Report(screenshotReports));
 }

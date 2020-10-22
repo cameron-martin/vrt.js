@@ -14,13 +14,25 @@ export default class FilesystemBackend implements Backend {
   }
 
   private getManifest = memoize(async () => {
-    const contents = JSON.parse(await fs.readFile(this.manifestPath, 'utf8'));
+    try {
+      const contents = JSON.parse(await fs.readFile(this.manifestPath, 'utf8'));
 
-    return Manifest.check(contents);
+      return Manifest.check(contents);
+    } catch (e) {
+      if (e.code === 'ENOENT') {
+        return null;
+      } else {
+        throw e;
+      }
+    }
   });
 
   async *getScreenshots(): AsyncIterableIterator<Screenshot> {
     const manifest = await this.getManifest();
+
+    if (manifest == null) {
+      return;
+    }
 
     for (const entry of manifest) {
       const image = await fs.readFile(

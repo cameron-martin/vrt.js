@@ -2,6 +2,7 @@ import { Configuration, MatrixBackend } from '@vrt.js/core';
 import PuppeteerBrowser from '@vrt.js/puppeteer-browser';
 import PageBackend from '@vrt.js/page-backend';
 import { generateReport } from '@vrt.js/website-reporter';
+import path from 'path';
 
 const createBackend = (build: string) =>
   new MatrixBackend(
@@ -25,7 +26,7 @@ const config: Configuration = {
   after: createBackend('after'),
   async report(report) {
     await generateReport(report, {
-      outputDirectory: './reports/crawl-both',
+      outputDirectory: path.resolve(__dirname, 'report'),
     });
   },
 };
