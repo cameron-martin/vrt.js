@@ -1,5 +1,7 @@
 # vrt.js
 
+All visual regression testing libraries that I have seen are quite opinionated. For example, they only work with selenium, or only take screenshots of entire pages, or can only compare against baselines stored on the filesystem. This means deviating from their restrictions is difficult. vrt.js takes a more modular approach. You can think of it as a toolkit or framework for building a visual regression testing system yourself. Most of the behaviour is behind interfaces, their implementations specified in the configuration file.
+
 ## Concepts
 
 * **Backend** - Something that yields screenshots. You will have one of these for either side of the comparison. Screenshots can come from anywhere - the filesystem, S3, a browser, etc. Screenshots have an associated key, which is an arbitrary dictionary of properties. This is used to pair screenshots yielded from the "before" and "after" backend.
@@ -55,5 +57,5 @@ module.exports = {
 You can then invoke the CLI with this configuration by running:
 
 ```sh
-vrt.js --config ./config.js
+vrt.js --config config.js
 ```
