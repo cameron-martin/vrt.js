@@ -41,7 +41,7 @@ export async function generateReport(report: Report, config: Config) {
     require.resolve('../templates/index.ejs'),
     {
       failedItems,
-      successfulItems
+      successfulItems,
     },
   );
 
@@ -53,7 +53,7 @@ function partitionReportItems(reportItems: ReportItemViewModel[]) {
   const successfulItems: ReportItemViewModel[] = [];
 
   reportItems.forEach(reportItem => {
-    if(reportItem.mismatchPercentage === 0) {
+    if (reportItem.mismatchPercentage === 0) {
       successfulItems.push(reportItem);
     } else {
       failedItems.push(reportItem);

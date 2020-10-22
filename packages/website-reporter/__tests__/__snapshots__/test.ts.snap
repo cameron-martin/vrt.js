@@ -6,6 +6,10 @@ exports[`matches snapshot 1`] = `
     <head>
         <title>Vrt.js Report</title>
         <style>
+            .report-item {
+                margin-bottom: 2rem;
+            }
+
             .screenshots {
                 display: flex;
             }
@@ -13,63 +17,100 @@ exports[`matches snapshot 1`] = `
             .screenshot {
                 width: calc(100% / 3);
             }
+
+            .key {
+                font-size: 2rem;
+            }
         </style>
     </head>
     <body>
+        <h1>Failed</h1>
+
         
-            <details>
-                <summary>{&#34;key&#34;:&#34;/foo&#34;,&#34;browser&#34;:&#34;Chrome&#34;,&#34;viewportWidth&#34;:1024}</summary>
-                <div class=\\"screenshots\\">
-                    <div class=\\"screenshot\\">
-                        <h2>Before</h2>
-                        <a href=\\"screenshots/1.png\\"><img src=\\"screenshots/1.png\\"></a>
-                    </div>
-                    <div class=\\"screenshot\\">
-                        <h2>Diff</h2>
-                        <a href=\\"screenshots/3.png\\"><img src=\\"screenshots/3.png\\"></a>
-                    </div>
-                    <div class=\\"screenshot\\">
-                        <h2>After</h2>
-                        <a href=\\"screenshots/2.png\\"><img src=\\"screenshots/2.png\\"></a>
-                    </div>
-                </div>
-            </details>
+            <details class=\\"report-item\\">
+    <summary>
+        <span class=\\"key\\">/bar</span><br />
+        <span class=\\"details\\">Browser: Chrome, Viewport Width: 1024</span>
+    </summary>
+    <div class=\\"screenshots\\">
+        <div class=\\"screenshot\\">
+    <h2>Before</h2>
+    
+        <a href=\\"screenshots/4.png\\"><img src=\\"screenshots/4.png\\"></a>
+    
+</div>
+        <div class=\\"screenshot\\">
+    <h2>Diff (100% mismatch)</h2>
+    
+        None
+    
+</div>
+        <div class=\\"screenshot\\">
+    <h2>After</h2>
+    
+        None
+    
+</div>
+    </div>
+</details>
         
-            <details>
-                <summary>{&#34;key&#34;:&#34;/bar&#34;,&#34;browser&#34;:&#34;Chrome&#34;,&#34;viewportWidth&#34;:1024}</summary>
-                <div class=\\"screenshots\\">
-                    <div class=\\"screenshot\\">
-                        <h2>Before</h2>
-                        <a href=\\"screenshots/4.png\\"><img src=\\"screenshots/4.png\\"></a>
-                    </div>
-                    <div class=\\"screenshot\\">
-                        <h2>Diff</h2>
-                        <a href=\\"screenshots/6.png\\"><img src=\\"screenshots/6.png\\"></a>
-                    </div>
-                    <div class=\\"screenshot\\">
-                        <h2>After</h2>
-                        <a href=\\"screenshots/5.png\\"><img src=\\"screenshots/5.png\\"></a>
-                    </div>
-                </div>
-            </details>
+            <details class=\\"report-item\\">
+    <summary>
+        <span class=\\"key\\">/baz</span><br />
+        <span class=\\"details\\">Browser: Chrome, Viewport Width: 1024</span>
+    </summary>
+    <div class=\\"screenshots\\">
+        <div class=\\"screenshot\\">
+    <h2>Before</h2>
+    
+        <a href=\\"screenshots/5.png\\"><img src=\\"screenshots/5.png\\"></a>
+    
+</div>
+        <div class=\\"screenshot\\">
+    <h2>Diff (50% mismatch)</h2>
+    
+        <a href=\\"screenshots/7.png\\"><img src=\\"screenshots/7.png\\"></a>
+    
+</div>
+        <div class=\\"screenshot\\">
+    <h2>After</h2>
+    
+        <a href=\\"screenshots/6.png\\"><img src=\\"screenshots/6.png\\"></a>
+    
+</div>
+    </div>
+</details>
         
-            <details>
-                <summary>{&#34;key&#34;:&#34;/baz&#34;,&#34;browser&#34;:&#34;Chrome&#34;,&#34;viewportWidth&#34;:1024}</summary>
-                <div class=\\"screenshots\\">
-                    <div class=\\"screenshot\\">
-                        <h2>Before</h2>
-                        <a href=\\"screenshots/7.png\\"><img src=\\"screenshots/7.png\\"></a>
-                    </div>
-                    <div class=\\"screenshot\\">
-                        <h2>Diff</h2>
-                        <a href=\\"screenshots/9.png\\"><img src=\\"screenshots/9.png\\"></a>
-                    </div>
-                    <div class=\\"screenshot\\">
-                        <h2>After</h2>
-                        <a href=\\"screenshots/8.png\\"><img src=\\"screenshots/8.png\\"></a>
-                    </div>
-                </div>
-            </details>
+
+        <h1>Successful</h1>
+
+        
+            <details class=\\"report-item\\">
+    <summary>
+        <span class=\\"key\\">/foo</span><br />
+        <span class=\\"details\\">Browser: Chrome, Viewport Width: 1024</span>
+    </summary>
+    <div class=\\"screenshots\\">
+        <div class=\\"screenshot\\">
+    <h2>Before</h2>
+    
+        <a href=\\"screenshots/1.png\\"><img src=\\"screenshots/1.png\\"></a>
+    
+</div>
+        <div class=\\"screenshot\\">
+    <h2>Diff (0% mismatch)</h2>
+    
+        <a href=\\"screenshots/3.png\\"><img src=\\"screenshots/3.png\\"></a>
+    
+</div>
+        <div class=\\"screenshot\\">
+    <h2>After</h2>
+    
+        <a href=\\"screenshots/2.png\\"><img src=\\"screenshots/2.png\\"></a>
+    
+</div>
+    </div>
+</details>
         
     </body>
 </html>"
