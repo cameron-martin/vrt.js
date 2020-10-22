@@ -1,7 +1,7 @@
 import { Backend, Screenshot } from './Backend';
 import combineAsyncIterators from 'combine-async-iterators';
 
-type ArrayValues<T> = { [K in keyof T]: T[K][] };
+type ArrayValues<T> = { [K in keyof T]: ReadonlyArray<T[K]> };
 
 function objectCombinations<T>(matrix: ArrayValues<T>): T[] {
   const keys = Object.keys(matrix) as (keyof T)[];
