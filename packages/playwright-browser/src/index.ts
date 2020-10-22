@@ -1,4 +1,4 @@
-import { Browser, BrowserSession } from '@vrt.js/core';
+import { Browser, BrowserSession, BrowserActions } from '@vrt.js/core';
 import * as playwright from 'playwright';
 
 interface Config {
@@ -28,6 +28,8 @@ export default class PlaywrightBrowser implements Browser {
 }
 
 export class PlaywrightBrowserSession implements BrowserSession {
+  readonly actions = new PlaywrightBrowserActions(this.page);
+
   constructor(
     private readonly config: Config,
     private readonly browser: playwright.Browser,
@@ -56,5 +58,21 @@ export class PlaywrightBrowserSession implements BrowserSession {
 
   destroy(): Promise<void> {
     return this.browser.close();
+  }
+}
+
+class PlaywrightBrowserActions implements BrowserActions {
+  constructor(private readonly page: playwright.Page) {}
+
+  async clickElements(cssSelector: string): Promise<void> {
+    const elements = await this.page.$$(cssSelector);
+
+    for (const element of elements) {
+      await element.click();
+    }
+  }
+
+  executeScript(script: string): Promise<void> {
+    return this.page.evaluate(script);
   }
 }

@@ -1,4 +1,4 @@
-import { Browser, BrowserSession } from '@vrt.js/core';
+import { Browser, BrowserActions, BrowserSession } from '@vrt.js/core';
 import puppeteer from 'puppeteer';
 
 interface Config {
@@ -23,12 +23,14 @@ export default class PuppeteerBrowser implements Browser {
 }
 
 export class PuppeteerBrowserSession implements BrowserSession {
+  readonly actions = new PuppeteerBrowserActions(this.page);
+
   constructor(
     private readonly config: Config,
     private readonly browser: puppeteer.Browser,
     private readonly page: puppeteer.Page,
   ) {
-    this.page.setViewport({ width: this.config.viewportWidth, height: 500 });
+    this.page.setViewport({ width: this.config.viewportWidth, height: 1000 });
   }
 
   async goTo(url: string): Promise<void> {
@@ -53,5 +55,21 @@ export class PuppeteerBrowserSession implements BrowserSession {
 
   destroy(): Promise<void> {
     return this.browser.close();
+  }
+}
+
+class PuppeteerBrowserActions implements BrowserActions {
+  constructor(private readonly page: puppeteer.Page) {}
+
+  async clickElements(cssSelector: string): Promise<void> {
+    const elements = await this.page.$$(cssSelector);
+
+    for (const element of elements) {
+      await element.click();
+    }
+  }
+
+  async executeScript(script: string): Promise<void> {
+    await this.page.evaluate(script);
   }
 }

@@ -18,6 +18,7 @@ const vrtConfig: Configuration = {
     }),
     urls: [`http://localhost:${reportPort}/index.html`],
     prefix: `http://localhost:${reportPort}`,
+    setup: (actions) => actions.clickElements('summary'),
   }),
   async report(report) {
     // TODO: Find a way of hooking into jest's snapshot updating mechanism
@@ -34,7 +35,7 @@ const vrtConfig: Configuration = {
   },
 };
 
-jest.setTimeout(60000);
+jest.setTimeout(600000);
 
 test('report matches baseline images', async () => {
   await runExample();
