@@ -1,7 +1,7 @@
 import { Report } from '@vrt.js/core';
 import fs from 'fs-extra';
 import path from 'path';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { Manifest, getManifestPath } from './Manifest';
 
 interface Config {

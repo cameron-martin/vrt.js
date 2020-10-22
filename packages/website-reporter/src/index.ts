@@ -37,7 +37,7 @@ export async function generateReport(report: Report, config: Config) {
 
   const { failedItems, successfulItems } = partitionReportItems(reportItems);
 
-  const result = await ejs.renderFile<string>(
+  const result = await ejs.renderFile(
     require.resolve('../templates/index.ejs'),
     {
       failedItems,
