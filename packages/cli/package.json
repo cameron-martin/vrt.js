@@ -5,8 +5,8 @@
         "vrt.js": "./dist/index.js"
     },
     "dependencies": {
-        "@types/yargs": "^13.0.2",
+        "@types/yargs": "^15.0.9",
         "@vrt.js/core": "^0.0.1",
-        "yargs": "^13.3.0"
+        "yargs": "^16.1.0"
     }
 }

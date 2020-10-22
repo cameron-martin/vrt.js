@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "main": "dist/index.js",
     "dependencies": {
-        "combine-async-iterators": "^1.1.1",
+        "combine-async-iterators": "^2.0.0",
         "resemblejs": "^3.2.5"
     }
 }
