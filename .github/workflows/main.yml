@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        node: [ '11', '12' ]
+        node: [ '12', '15' ]
     name: Build and test using node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v1
