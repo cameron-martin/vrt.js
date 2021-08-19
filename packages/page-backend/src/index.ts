@@ -1,4 +1,4 @@
-import { Backend, Screenshot, Browser } from '@vrt.js/core';
+import { Backend, Screenshot, Browser, BrowserActions } from '@vrt.js/core';
 
 export interface Config {
   /**
@@ -22,6 +22,10 @@ export interface Config {
    * @default 1
    */
   concurrency?: number;
+  /**
+   * Performs any setup of the page before a screenshot is taken.
+   */
+  setup?(actions: BrowserActions): Promise<void>;
 }
 
 /**
@@ -42,6 +46,10 @@ export default class PageBackend implements Backend {
         visitedUrls.add(url);
 
         await session.goTo(url);
+
+        if (this.config.setup) {
+          await this.config.setup(session.actions);
+        }
 
         const path = removePrefix(
           this.config.prefix,

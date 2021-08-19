@@ -19,7 +19,8 @@ jobs:
       - run: sudo apt install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: yarn test
+      - id: test
+        run: yarn test
       - name: Upload test reports
         uses: actions/upload-artifact@v2
         with:
@@ -27,3 +28,4 @@ jobs:
           path: |
             examples/crawl-both/report
             examples/crawl-both/tests/report
+        if: ${{ failure() && steps.test.outcome == 'failure' }}
